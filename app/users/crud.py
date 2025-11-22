@@ -1,7 +1,8 @@
-from fastapi import APIRouter
-from users.schemas import CreateUser
-router = APIRouter(prefix="/users")
+from app.users.schemas import CreateUser
 
-@router.post("/")
-def create_user(user: CreateUser):
-    return "success"
+def create_user(user_in: CreateUser):
+    user = user_in.model_dump()
+    return {
+        "success": True,
+        "user": user,
+    }
