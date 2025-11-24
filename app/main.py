@@ -8,6 +8,19 @@ from api import router as api_router
 
 from app.core.config import settings
 
+from contextlib import asynccontextmanager
+
+from core.models import db_helper
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # start
+    yield
+    # shutdown
+    await db_helper.dispose()
+
+
 app = FastAPI()
 app.include_router(
     settings.api.prefix,
