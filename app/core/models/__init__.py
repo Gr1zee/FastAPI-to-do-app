@@ -1,8 +1,4 @@
-__all__ = (
-    "db_helper",
-    "Base",
-    "User"
-)
+__all__ = ("db_helper", "Base", "User")
 
 from app.core.models.db_helper import db_helper
 from app.core.models.base import Base
