@@ -11,7 +11,7 @@ from app.api.api_v1 import router as api_v1_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # start
+    # start  # только создание
     yield
     # shutdown
     await db_helper.dispose()
