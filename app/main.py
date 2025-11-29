@@ -1,32 +1,24 @@
 import uvicorn
 from fastapi import FastAPI
 
-# from app.tasks.views import router as tasks_router
-# from app.users.views import router as users_router
-
-# from api import router as api_router
-
 from app.core.config import settings
 
 from contextlib import asynccontextmanager
 
 from app.core.models import db_helper, Base
+from app.api.api_v1 import router as api_v1_router
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # start
-    async with db_helper.engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
     yield
     # shutdown
     await db_helper.dispose()
 
 
 app = FastAPI(lifespan=lifespan)
-# app.include_router(
-#     prefix=settings.api.prefix,
-# )
+app.include_router(prefix=settings.api.prefix, router=api_v1_router)
 
 if __name__ == "__main__":
     # When running this file directly with python, use this path

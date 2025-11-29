@@ -11,5 +11,5 @@ router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.get("", response_model=list[UserRead])
 async def get_users(session: AsyncSession = Depends(db_helper.session_getter)):
-    users = get_all_users(session=session)
+    users = await get_all_users(session=session)
     return users
